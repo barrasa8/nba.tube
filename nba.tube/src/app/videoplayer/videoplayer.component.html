@@ -1,0 +1,6 @@
+<h3>VideoComponent display parent data--> {{parentVideoUrl}} </h3>
+
+<div ng-show="showVideo" align="center">
+  <iframe margin="0" padding="0" border="none" width="700" height="400" frameBorder="0" [src] = "parentVideoUrl | videoPipe">
+ </iframe>
+</div>

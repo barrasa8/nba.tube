@@ -1,3 +1,5 @@
+import { Meta } from './meta'
+
 export interface Result {
   summary: string;
   permlink:string;
@@ -7,5 +9,6 @@ export interface Result {
   created:string;
   children:string;
   tags:string[];
+  meta:Meta[]
   net_votes:string;
 }

@@ -1,5 +1,5 @@
 import { Component, Input,Output,OnChanges,OnInit ,EventEmitter} from '@angular/core';
-import {Video} from '../video'
+import {VideoInfo} from '../videoinfo'
 import {Config} from '../config.service'
 
 @Component({
@@ -10,14 +10,14 @@ import {Config} from '../config.service'
   outputs:['videoUrl']
 })
 export class PlaylistComponent implements OnInit {
-  videos:Array<Video>;
+  videos:Array<VideoInfo>;
 
   videoUrl = new EventEmitter<string>();
 
   public youtubeUrl:string = Config.YOUTUBE_EMBEDED_URL
   public youtubeCode:string = ""
 
-  onSelect(vid:Video){
+  onSelect(vid:VideoInfo){
     console.log(this.youtubeUrl+vid.videoCode)
     this.youtubeCode =  vid.videoCode
     this.videoUrl.emit(this.youtubeUrl+vid.videoCode);
@@ -25,9 +25,9 @@ export class PlaylistComponent implements OnInit {
 
   constructor() {
     this.videos = [
-      new Video(1,"Angular 2 - episode 7","f8qBeaGe2S4","How to use Angular"),
-      new Video(2,"Grial","v7RNNj8u13g","Input and outputs"),
-      new Video(3,"Tailandia","aIvK7qWc0pY","Pipes")
+      new VideoInfo(1,"Angular 2 - episode 7","f8qBeaGe2S4","How to use Angular"),
+      new VideoInfo(2,"Grial","v7RNNj8u13g","Input and outputs"),
+      new VideoInfo(3,"Tailandia","aIvK7qWc0pY","Pipes")
     ]
  }
 

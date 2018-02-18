@@ -1,4 +1,7 @@
+import { Video} from './video'
+
 export interface Meta {
+  video:Video[];
   tags:string[];
   users:string[];
   image:string[];

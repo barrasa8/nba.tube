@@ -9,6 +9,6 @@ export interface Result {
   created:string;
   children:string;
   tags:string[];
-  meta:Meta[]
+  meta:Meta;
   net_votes:string;
 }

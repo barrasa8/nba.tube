@@ -11,7 +11,6 @@ import {Config} from '../config.service'
 })
 export class PlaylistComponent implements OnInit {
   videos:Array<VideoInfo>;
-
   videoUrl = new EventEmitter<string>();
 
   public youtubeUrl:string = Config.YOUTUBE_EMBEDED_URL

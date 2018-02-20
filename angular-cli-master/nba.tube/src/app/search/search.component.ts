@@ -1,4 +1,4 @@
-import { Component,  Input,Output, OnInit } from '@angular/core';
+import { Component,  Input,Output, OnInit,EventEmitter } from '@angular/core';
 import { Config} from '../config.service';
 //import { HttpModule  } from '@angular/http';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
@@ -14,14 +14,16 @@ import {VideoInfo} from '../videoinfo'
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
-  outputs:['videos']
+  outputs:['filteredResultsEmitter']
 })
 export class SearchComponent implements OnInit {
   private askSteemReponse: AskSteemResponse;
   private askSteemReponseResults: Result[];
   private steemitLink: string;
   private filteredResults: Result[]=[];
-  public videos: Array<VideoInfo>;
+
+  filteredResultsEmitter = new EventEmitter<Result[]>();
+  //public videos: Array<VideoInfo>;
 
   constructor(private http: HttpClient) {}
 
@@ -35,13 +37,14 @@ export class SearchComponent implements OnInit {
                                                                 this.askSteemReponseResults =  this.askSteemReponse.results;
                                                                 this.steemitLink = Config.STEEMIT_URL;
                                                               });
+    this.filteredResultsEmitter.emit(this.filteredResults)
   };
 
-  filterYoutubeVideos(responseResult:Result[]): void{
+  filterYoutubeVideos(responseResult:Result[]){
      for (let r of responseResult ){
        if(typeof(r.meta.links) !== 'undefined'){
         for (let l of r.meta.links){
-          if(l.indexOf('youtu')>0){this.filteredResults.push(r)}        
+          if(l.indexOf('youtu')>0){this.filteredResults.push(r)}
         }
       }
     }

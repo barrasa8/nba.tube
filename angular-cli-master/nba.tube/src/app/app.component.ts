@@ -15,11 +15,5 @@ export class AppComponent {
   public videos:Array<VideoInfo>;
   public videoUrl:string ="";
 
-  constructor(){
-    // this.videos = [
-    //   new VideoInfo(1,"Angular 2 - episode 7","f8qBeaGe2S4","How to use Angular"),
-    //   new VideoInfo(2,"Grial","v7RNNj8u13g","Input and outputs"),
-    //   new VideoInfo(3,"Tailandia","aIvK7qWc0pY","Pipes")
-    // ]
-  }
+  constructor(){}
 }

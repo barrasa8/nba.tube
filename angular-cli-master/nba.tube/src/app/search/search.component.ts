@@ -1,14 +1,8 @@
 import { Component,  Input,Output, OnInit,EventEmitter } from '@angular/core';
 import { Config} from '../config.service';
-//import { HttpModule  } from '@angular/http';
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
-import { Http, Response } from '@angular/http';
 import { AskSteemResponse } from '../interface/ask-steem-response'
+import { VideosService } from '../videos.service'
 import { Result } from '../interface/result'
-//import video class
-import {VideoInfo} from '../videoinfo'
-
-
 
 @Component({
   selector: 'app-search',
@@ -16,37 +10,21 @@ import {VideoInfo} from '../videoinfo'
   styleUrls: ['./search.component.css'],
   outputs:['filteredResultsEmitter']
 })
+
 export class SearchComponent implements OnInit {
-  private askSteemReponse: AskSteemResponse;
-  private askSteemReponseResults: Result[];
-  private steemitLink: string;
   private filteredResults: Result[]=[];
-
   filteredResultsEmitter = new EventEmitter<Result[]>();
-  //public videos: Array<VideoInfo>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private videosService:VideosService) {}
 
   ngOnInit() {}
 
-  performSearch(searchTerm: HTMLInputElement): void {
-    var apiLink = Config.ASKSTEEM_API_URL + searchTerm.value + '&include=meta';
-    console.log(apiLink);
-    this.http.get<AskSteemResponse>(apiLink).subscribe(data => {console.log(this.askSteemReponse = data);
-                                                                this.filterYoutubeVideos(data.results);
-                                                                this.askSteemReponseResults =  this.askSteemReponse.results;
-                                                                this.steemitLink = Config.STEEMIT_URL;
-                                                              });
-    this.filteredResultsEmitter.emit(this.filteredResults)
-  };
+   performSearch(searchTerm: HTMLInputElement) {
+    let apiLink = Config.ASKSTEEM_API_URL + searchTerm.value + '&include=meta'
 
-  filterYoutubeVideos(responseResult:Result[]){
-     for (let r of responseResult ){
-       if(typeof(r.meta.links) !== 'undefined'){
-        for (let l of r.meta.links){
-          if(l.indexOf('youtu')>0){this.filteredResults.push(r)}
-        }
-      }
-    }
-  };
+    console.log(apiLink)
+    console.log('BEFORE search function - '+this.filteredResults.length)
+    this.filteredResults = this.videosService.getSearchResults(apiLink)
+    console.log('AFTER search function - '+this.filteredResults.length)
+  }
 }

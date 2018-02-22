@@ -6,8 +6,9 @@ import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { VideoplayerComponent } from './videoplayer/videoplayer.component';
-import { VideoPipe } from './video.pipe';
-import { SteemResponseService } from './steem-response.service'
+import { VideoPipe } from './pipes/video.pipe';
+import { SteemResponseService } from './services/steem-response.service';
+
 
 
 @NgModule({

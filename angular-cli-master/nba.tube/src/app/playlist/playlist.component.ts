@@ -1,22 +1,20 @@
 import { Component, Input,Output,OnChanges,OnInit ,EventEmitter } from '@angular/core';
-import { VideoInfo } from '../videoinfo'
+import { VideoInfo } from '../videoInfo'
 import { Config } from '../config.service'
 import { Result } from '../interface/result'
-import { SteemResponseService } from '../steem-response.service'
+import { SteemResponseService } from '../services/steem-response.service'
 
 
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.css'],
-  inputs:['videos','searchFilteredResults'],
+  inputs:['videosResultsEmitter'],
   outputs:['videoUrl']
 })
 export class PlaylistComponent implements OnInit {
-  videos:VideoInfo[] = [];
-  vid:VideoInfo[] = [];
   videoUrl = new EventEmitter<string>();
-  searchFilteredResults : Result[]=[];
+  videosResultsEmitter : VideoInfo[]=[];
 
   public youtubeUrl:string = Config.YOUTUBE_EMBEDED_URL
   public youtubeCode:string = ""
@@ -27,11 +25,10 @@ export class PlaylistComponent implements OnInit {
     this.videoUrl.emit(this.youtubeUrl+vid.videoCode);
   }
 
-  constructor(v:SteemResponseService) {
-    this.vid = v.getVideos()
+  constructor(private steemResponseService:SteemResponseService) {
+
  }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

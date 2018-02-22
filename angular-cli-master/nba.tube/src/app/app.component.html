@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>{{mainAppName}} - {{mainHeading}}</h1>
-  <app-search (filteredResultsEmitter) = "filteredResultsEmitter=$event"></app-search>
-  <!-- <app-playlist [videos] = "videos" (videoUrl) = "videoUrl=$event" [searchFilteredResults] = "(filteredResultsEmitter)"></app-playlist>
-  <app-videoplayer [parentVideoUrl]="(videoUrl)" ></app-videoplayer> -->
+  <app-search (videosResultsEmitter) = "videosResultsEmitter=$event"></app-search>
+  <app-playlist  (videoUrl) = "videoUrl=$event" [videosResultsEmitter] = "(videosResultsEmitter)"></app-playlist>
+  <app-videoplayer [parentVideoUrl]="(videoUrl)" ></app-videoplayer>
 </div>

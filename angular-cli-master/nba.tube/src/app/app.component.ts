@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Config} from './config.service';
-import {VideoInfo} from './videoinfo';
+import {VideoInfo} from './videoInfo';
 
 @Component({
   selector: 'app-root',

@@ -26,7 +26,8 @@ export class SearchComponent implements OnInit {
     console.log(apiLink)
     this.steemResponseService.getSearchResults(apiLink)
       .subscribe(data=>{this.filterYoutubeVideos(data.results),
-                        console.log(this.filteredResults),
+                        //console.log(this.filteredResults),
+                       this.videosResultsEmitter.emit(this.videos=[]),
                        this.createVideolist(this.filteredResults),
                        this.videosResultsEmitter.emit(this.videos)
                      })
@@ -53,8 +54,8 @@ export class SearchComponent implements OnInit {
 
     filteredResults.forEach((item, index) => {
         item.meta.links.forEach((link,linkIndex)=>{
-          if(link.indexOf('youtu')){
-            this.videos.push(new VideoInfo(index,
+          if(link.indexOf('youtu')>0){
+            this.videos.push(new VideoInfo(this.videos.length+1,
                                           item.title
                                           ,item.meta.links[linkIndex]
                                           ,item.summary))

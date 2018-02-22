@@ -19,10 +19,10 @@ export class PlaylistComponent implements OnInit {
   public youtubeUrl:string = Config.YOUTUBE_EMBEDED_URL
   public youtubeCode:string = ""
 
-  onSelect(vid:VideoInfo){
-    console.log(this.youtubeUrl+vid.videoCode)
-    this.youtubeCode =  vid.videoCode
-    this.videoUrl.emit(this.youtubeUrl+vid.videoCode);
+  onSelect(video:VideoInfo){
+    console.log(video.videoCode)
+    this.youtubeCode =  video.videoCode
+    this.videoUrl.emit(video.videoCode);
   }
 
   constructor(private steemResponseService:SteemResponseService) {

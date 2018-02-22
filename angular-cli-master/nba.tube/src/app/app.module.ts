@@ -7,7 +7,7 @@ import { SearchComponent } from './search/search.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { VideoplayerComponent } from './videoplayer/videoplayer.component';
 import { VideoPipe } from './video.pipe';
-import { VideosService } from './videos.service'
+import { SteemResponseService } from './steem-response.service'
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import { VideosService } from './videos.service'
     FormsModule
   ],
   providers: [
-    VideosService
+    SteemResponseService
   ],
   bootstrap: [AppComponent]
 })

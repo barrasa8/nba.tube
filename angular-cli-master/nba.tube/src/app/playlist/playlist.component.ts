@@ -2,7 +2,7 @@ import { Component, Input,Output,OnChanges,OnInit ,EventEmitter } from '@angular
 import { VideoInfo } from '../videoinfo'
 import { Config } from '../config.service'
 import { Result } from '../interface/result'
-import { VideosService } from '../videos.service'
+import { SteemResponseService } from '../steem-response.service'
 
 
 @Component({
@@ -27,7 +27,7 @@ export class PlaylistComponent implements OnInit {
     this.videoUrl.emit(this.youtubeUrl+vid.videoCode);
   }
 
-  constructor(v:VideosService) {
+  constructor(v:SteemResponseService) {
     this.vid = v.getVideos()
  }
 

@@ -1,6 +1,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <td>Video Thumbnail</td>
       <td>Youtube URL</td>
       <td>ID</td>
       <td>Title</td>
@@ -9,7 +10,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let v of videosResultsEmitter; let i  = index" (click) = "onSelect(v)" >
-      <td>{{youtubeCode}} </td>
+      <td><img [src] = "v.videoCode | getVideoThumbnail"></td>
+      <td>{{v.videoCode}} </td>
       <td>{{v.id+1}}</td>
       <td>{{v.title}}</td>
       <td>{{v.desc}}</td>

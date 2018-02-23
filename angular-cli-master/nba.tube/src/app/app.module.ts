@@ -8,6 +8,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
 import { VideoplayerComponent } from './videoplayer/videoplayer.component';
 import { VideoPipe } from './pipes/video.pipe';
 import { SteemResponseService } from './services/steem-response.service';
+import { GetVideoThumbnailPipe } from './pipes/get-video-thumbnail.pipe';
 
 
 
@@ -17,7 +18,8 @@ import { SteemResponseService } from './services/steem-response.service';
     SearchComponent,
     PlaylistComponent,
     VideoplayerComponent,
-    VideoPipe
+    VideoPipe,
+    GetVideoThumbnailPipe
   ],
   imports: [
     BrowserModule,

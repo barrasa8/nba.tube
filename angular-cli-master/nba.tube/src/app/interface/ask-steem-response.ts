@@ -5,6 +5,6 @@ export interface AskSteemResponse {
   error:boolean;
   hits:number;
   time:number;
-  pages:Page[];
+  pages:Page;
   results:Result[];
 }

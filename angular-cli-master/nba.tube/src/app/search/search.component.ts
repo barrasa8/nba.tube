@@ -4,32 +4,45 @@ import { AskSteemResponse } from '../interface/ask-steem-response'
 import { SteemResponseService } from '../services/steem-response.service'
 import { Result } from '../interface/result'
 import { VideoInfo } from '../videoInfo'
+import { ResultPage } from '../resultPage'
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
-  outputs:['videosResultsEmitter']
+  outputs:['videosResultsEmitter','resultPageEmitter','apiLinkEmitter']
 })
 
 export class SearchComponent implements OnInit {
   private filteredResults: Result[]=[];
   private videos:VideoInfo[]=[]
-  private videosResultsEmitter = new EventEmitter<VideoInfo[]>();
+  private apiLink: string
+  private resultPage:ResultPage
 
-  constructor(private steemResponseService:SteemResponseService) {}
+  private videosResultsEmitter = new EventEmitter<VideoInfo[]>();
+  private apiLinkEmitter = new EventEmitter<string>();
+  private resultPageEmitter = new EventEmitter<ResultPage>();
+
+
+  constructor(private steemResponseService:SteemResponseService) {
+    this.apiLink=""
+    this.resultPage = new ResultPage(1,false,false)
+  }
 
   ngOnInit() {}
 
   performSearch(searchTerm: HTMLInputElement) {
-    let apiLink = Config.ASKSTEEM_API_URL + searchTerm.value + '&include=meta'
-    console.log(apiLink)
-    this.steemResponseService.getSearchResults(apiLink)
+    this.apiLink = Config.ASKSTEEM_API_URL + searchTerm.value +'&include=meta'
+
+    this.steemResponseService.getSearchResults(this.apiLink + '&pg='+this.resultPage.current)
       .subscribe(data=>{this.filterYoutubeVideos(data.results),
-                        //console.log(this.filteredResults),
+                        //console.log(data),
                        this.videosResultsEmitter.emit(this.videos=[]),
                        this.createVideolist(this.filteredResults),
-                       this.videosResultsEmitter.emit(this.videos)
+                       this.videosResultsEmitter.emit(this.videos),
+                       this.resultPage = new ResultPage(1,data.pages.has_next,data.pages.has_previous),
+                       this.resultPageEmitter.emit(this.resultPage),
+                       this.apiLinkEmitter.emit(this.apiLink)
                      })
   }
 
@@ -61,9 +74,6 @@ export class SearchComponent implements OnInit {
                                           ,item.summary))
           }
         })
-        console.log(item),
-        console.log(index),
-        console.log(this.videos)
     })
   }
 }

@@ -17,5 +17,4 @@ export class SteemResponseService{
   getSearchResults(apiLink:string):Observable<AskSteemResponse>{
     return this.http.get<AskSteemResponse>(apiLink)
   };
-
 }
